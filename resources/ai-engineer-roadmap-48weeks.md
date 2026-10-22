@@ -457,12 +457,12 @@ def delete_task(task_id: str):
 5. Bórrala con DELETE
 
 ### ✅ Checklist
-- [ ] Entiendo REST y los métodos HTTP
-- [ ] Sé crear APIs con FastAPI
-- [ ] Uso Pydantic para validación
-- [ ] He probado mi API en /docs (Swagger UI)
-- [ ] CRUD API funciona completamente
-- [ ] Código en GitHub con README
+- [ ✅ ] Entiendo REST y los métodos HTTP
+- [ ✅ ] Sé crear APIs con FastAPI
+- [✅  ] Uso Pydantic para validación
+- [ ✅ ] He probado mi API en /docs (Swagger UI)
+- [✅  ] CRUD API funciona completamente
+- [✅  ] Código en GitHub con README
 
 ---
 
