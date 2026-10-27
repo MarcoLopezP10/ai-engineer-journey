@@ -7,17 +7,19 @@
 
 ## 📋 Índice
 
-- [Contexto y Objetivos](#contexto-y-objetivos)
-- [Setup Inicial](#setup-inicial)
-- [Fase 1: Fundamentos (Oct-Dic)](#fase-1-fundamentos-oct-dic)
-- [Fase 2: Backend + RAG (Ene-Mar)](#fase-2-backend-rag-ene-mar)
-- [Fase 3: Producción + Agents (Abr-Jun)](#fase-3-producción-agents-abr-jun)
-- [Fase 4: Deploy + Empleo (Jul-Sep)](#fase-4-deploy-empleo-jul-sep)
-- [Recursos Generales](#recursos-generales)
-- [Networking Madrid](#networking-madrid)
-- [Preparación Entrevistas](#preparación-entrevistas)
+- [Contexto y Objetivos](#contexto)
+- [Setup Inicial](#setup)
+- [Fase 1: Fundamentos (Oct-Dic)](#fase-1)
+- [Fase 2: Backend + RAG (Ene-Mar)](#fase-2)
+- [Fase 3: Producción + Agents (Abr-Jun)](#fase-3)
+- [Fase 4: Deploy + Empleo (Jun-Sep)](#fase-4)
+- [Preparación Entrevistas](#entrevistas)
+- [Portfolio y Networking](#networking)
+- [Recursos Generales](#recursos)
 
 ---
+
+<a id="contexto"></a>
 
 ## Contexto y Objetivos
 
@@ -52,6 +54,8 @@
 No vas a ser experto en todo. Vas a ser **competente construyendo productos AI end-to-end**.
 
 ---
+
+<a id="setup"></a>
 
 ## Setup Inicial
 
@@ -130,16 +134,44 @@ cd ~/ai-engineer-journey
 
 4. **Docker Hub**
    - https://hub.docker.com/
-   - Para subir imágenes 
-   - (con IE) marcolopez232 // ***REMOVED***
+   - Para subir imágenes
+   - Cuenta con IE (credenciales en tu gestor de contraseñas, nunca en el repo)
 
 5. **AWS** (crearás cuenta en Fase 4)
    - https://aws.amazon.com/
    - Free tier (12 meses gratis)
 
+#### 🤖 Cómo usamos Gemini en este roadmap
+
+Todo el roadmap usa **Gemini (gratis)** a través del **SDK de OpenAI** (`pip install openai`). Gemini tiene un endpoint compatible con OpenAI, así que lo que aprendas sirve para los dos.
+
+```python
+from openai import OpenAI
+import os
+
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+)
+```
+
+| Para | Modelo |
+|---|---|
+| Chat | `gemini-3.8-flash` |
+| Embeddings | `gemini-embedding-001` con `dimensions=1536` (mismo tamaño que en los tutoriales de OpenAI, así `VECTOR(1536)` funciona igual) |
+| LangChain | `pip install langchain-google-genai` → `ChatGoogleGenerativeAI(model="gemini-3.8-flash")` |
+
+**Notas:**
+- La key va en `.env` como `GOOGLE_API_KEY` (git la ignora).
+- Si un tutorial externo usa OpenAI: cambia la key, añade `base_url` y usa el modelo de Gemini.
+- Plan gratuito: tiene límites por minuto/día (procesa embeddings en lotes) y Google puede usar los datos para mejorar sus productos, no envíes nada privado.
+- `tiktoken` es de OpenAI: con Gemini da una estimación de tokens, suficiente para chunking.
+
 #### 📚 Bookmark estas páginas
 
-- [OpenAI API Docs](https://platform.openai.com/docs)
+- [Gemini API Docs](https://ai.google.dev/gemini-api/docs)
+- [Gemini: compatibilidad con OpenAI](https://ai.google.dev/gemini-api/docs/openai)
+- [OpenAI API Docs](https://platform.openai.com/docs) (referencia del SDK que usamos)
 - [FastAPI Docs](https://fastapi.tiangolo.com/)
 - [LangChain Docs](https://python.langchain.com/)
 - [Docker Docs](https://docs.docker.com/)
@@ -147,17 +179,28 @@ cd ~/ai-engineer-journey
 - [Real Python](https://realpython.com/)
 - [AWS Docs](https://docs.aws.amazon.com/)
 
+#### 🧰 Comandos útiles: subir cambios
+
+```bash
+git status
+git add practice/ projects/ resources/ README.md .gitignore pyproject.toml .python-version
+git commit -m "tu mensaje"
+git push
+```
+
 #### ✅ Checklist pre-inicio
-- [✅ ] Python 3.11+ instalado
-- [ ✅] VS Code configurado con extensiones
-- [ ✅] Docker funcionando (prueba: `docker run hello-world`)
-- [✅ ] PostgreSQL accesible
-- [✅ ] Cuenta Google con crédito
-- [ ✅] GitHub profile actualizado
-- [✅ ] Estructura de carpetas creada
-- [✅ ] Este documento guardado y accesible
+- [x] Python 3.11+ instalado
+- [x] VS Code configurado con extensiones
+- [x] Docker funcionando (prueba: `docker run hello-world`)
+- [x] PostgreSQL accesible
+- [x] Cuenta Google con crédito
+- [x] GitHub profile actualizado
+- [x] Estructura de carpetas creada
+- [x] Este documento guardado y accesible
 
 ---
+
+<a id="fase-1"></a>
 
 # FASE 1: FUNDAMENTOS
 ## Octubre - Diciembre 2026 (12 semanas)
@@ -165,7 +208,7 @@ cd ~/ai-engineer-journey
 ### Objetivo de la fase
 Dominar las herramientas core de AI Engineer: Python moderno, LLMs, APIs, y construir tu primer proyecto AI end-to-end.
 
-**Proyecto final:** CLI AI Assistant con OpenAI API
+**Proyecto final:** CLI AI Assistant con Gemini API
 
 ---
 
@@ -295,11 +338,11 @@ if __name__ == "__main__":
 Ejecútalo y observa que las 3 "llamadas" ocurren concurrentemente.
 
 ### ✅ Checklist
-- [✅ ] Entiendo qué es async/await y cuándo usarlo
-- [ ✅] Sé crear modelos Pydantic con validaciones
-- [✅ ] He añadido type hints a código antiguo
-- [✅ ] Ejercicio principal completado y funciona
-- [✅ ] Código en GitHub
+- [x] Entiendo qué es async/await y cuándo usarlo
+- [x] Sé crear modelos Pydantic con validaciones
+- [x] He añadido type hints a código antiguo
+- [x] Ejercicio principal completado y funciona
+- [x] Código en GitHub
 
 ---
 
@@ -457,12 +500,12 @@ def delete_task(task_id: str):
 5. Bórrala con DELETE
 
 ### ✅ Checklist
-- [ ✅ ] Entiendo REST y los métodos HTTP
-- [ ✅ ] Sé crear APIs con FastAPI
-- [✅  ] Uso Pydantic para validación
-- [ ✅ ] He probado mi API en /docs (Swagger UI)
-- [✅  ] CRUD API funciona completamente
-- [✅  ] Código en GitHub con README
+- [x] Entiendo REST y los métodos HTTP
+- [x] Sé crear APIs con FastAPI
+- [x] Uso Pydantic para validación
+- [x] He probado mi API en /docs (Swagger UI)
+- [x] CRUD API funciona completamente
+- [x] Código en GitHub con README
 
 ---
 
@@ -622,12 +665,12 @@ pytest --cov=main --cov-report=term-missing
 ```
 
 ### ✅ Checklist
-- [ ] Sé trabajar con branches y merges
-- [ ] He practicado en learngitbranching.js.org
-- [ ] Domino pytest básico
-- [ ] Mi API tiene tests con >80% coverage
-- [ ] GitHub Actions ejecuta tests automáticamente
-- [ ] He hecho un PR completo
+- [x] Sé trabajar con branches y merges
+- [x] He practicado en learngitbranching.js.org
+- [x] Domino pytest básico
+- [x] Mi API tiene tests con >80% coverage
+- [x] GitHub Actions ejecuta tests automáticamente
+- [x] He hecho un PR completo
 
 ---
 
@@ -635,7 +678,7 @@ pytest --cov=main --cov-report=term-missing
 **4-10 Noviembre 2026**
 
 ### 🎯 Objetivo
-Entender cómo funcionan los LLMs y cómo usarlos via API (OpenAI).
+Entender cómo funcionan los LLMs y cómo usarlos via API (Gemini, con el SDK de OpenAI).
 
 ### 📖 Conceptos clave
 
@@ -679,21 +722,24 @@ messages = [
 
 **Lunes (1h):**
 - Ver video 3Blue1Brown sobre LLMs (30min) - FUNDAMENTAL
-- Leer OpenAI Quickstart (30min)
+- Leer [Gemini: compatibilidad con OpenAI](https://ai.google.dev/gemini-api/docs/openai) + OpenAI Quickstart (30min)
 
 **Martes (1.5h):**
-- Crear cuenta OpenAI, añadir crédito, generar API key
+- API key: ya tienes la de Gemini (gratis) en `.env` como `GOOGLE_API_KEY`
 - Instalar SDK: `pip install openai`
-- Primer script: "Hello world" con OpenAI
+- Primer script: "Hello world" con Gemini
 
 ```python
 from openai import OpenAI
 import os
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 response = client.chat.completions.create(
-    model="gpt-4o-mini",
+    model="gemini-3.8-flash",
     messages=[
         {"role": "user", "content": "Di hola"}
     ]
@@ -716,7 +762,7 @@ print(response.choices[0].message.content)
 
 ```python
 response = client.chat.completions.create(
-    model="gpt-4o-mini",
+    model="gemini-3.8-flash",
     messages=[
         {"role": "user", "content": "Dame info de 3 lenguajes de programación"}
     ],
@@ -729,7 +775,7 @@ response = client.chat.completions.create(
 **Viernes (1.5h):**
 - Construir CLI interactivo básico:
   - Usuario escribe pregunta
-  - Script llama OpenAI
+  - Script llama a Gemini
   - Muestra respuesta
   - Loop hasta que usuario escribe "exit"
 
@@ -743,14 +789,17 @@ from rich.console import Console
 from rich.markdown import Markdown
 
 console = Console()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 def chat(user_message: str, history: list) -> str:
     """Envía mensaje y devuelve respuesta"""
     history.append({"role": "user", "content": user_message})
     
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gemini-3.8-flash",
         messages=history,
         temperature=0.7
     )
@@ -785,14 +834,14 @@ if __name__ == "__main__":
 **Instalar dependencias:**
 ```bash
 pip install openai rich
-export OPENAI_API_KEY="tu-api-key"
+export GOOGLE_API_KEY="tu-api-key"  # o ponla en un archivo .env
 python chatbot.py
 ```
 
 ### ✅ Checklist
 - [ ] Entiendo qué son tokens y context window
 - [ ] Sé qué hace temperature
-- [ ] He usado OpenAI API exitosamente
+- [ ] He usado la API de Gemini exitosamente
 - [ ] Experimento con system prompts
 - [ ] Chatbot CLI funciona
 - [ ] Código en GitHub
@@ -897,7 +946,10 @@ import json
 from pydantic import BaseModel
 from typing import List
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 class CodeAnalysis(BaseModel):
     complexity: str  # "low", "medium", "high"
@@ -934,7 +986,7 @@ Responde en formato JSON:
 """
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gemini-3.8-flash",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
@@ -1190,7 +1242,7 @@ docker-compose exec api bash  # Entrar al contenedor
 **25 Noviembre - 8 Diciembre 2026**
 
 ### 🎯 Objetivo
-Construir tu primer proyecto AI end-to-end: un CLI que interactúa con OpenAI, con arquitectura limpia, tests, logging, y configuración profesional.
+Construir tu primer proyecto AI end-to-end: un CLI que interactúa con Gemini, con arquitectura limpia, tests, logging, y configuración profesional.
 
 ### 📋 Especificaciones del proyecto
 
@@ -1198,7 +1250,7 @@ Construir tu primer proyecto AI end-to-end: un CLI que interactúa con OpenAI, c
 
 **Funcionalidad:**
 - Usuario hace preguntas via línea de comandos
-- El CLI llama a OpenAI API
+- El CLI llama a la API de Gemini
 - Devuelve respuesta estructurada (summary, key points, follow-up questions)
 - Guarda historial de conversaciones
 - Logging de todas las llamadas
@@ -1207,7 +1259,7 @@ Construir tu primer proyecto AI end-to-end: un CLI que interactúa con OpenAI, c
 
 **Stack:**
 - Python 3.11+
-- OpenAI SDK
+- OpenAI SDK (apuntando a Gemini)
 - Pydantic (validación)
 - Rich (CLI bonito)
 - Pytest (tests)
@@ -1256,7 +1308,7 @@ ai-assistant-cli/
 - Implementar config.py (lectura de .env)
 
 **Miércoles (1.5h):**
-- Implementar assistant.py (lógica de llamada a OpenAI)
+- Implementar assistant.py (lógica de llamada a Gemini)
 - Implementar structured output (summary + key points)
 
 **Jueves (1.5h):**
@@ -1326,8 +1378,9 @@ from pydantic_settings import BaseSettings
 from functools import lru_cache
 
 class Settings(BaseSettings):
-    openai_api_key: str
-    model: str = "gpt-4o-mini"
+    google_api_key: str
+    gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
+    model: str = "gemini-3.8-flash"
     temperature: float = 0.7
     max_tokens: int = 1000
     log_level: str = "INFO"
@@ -1350,7 +1403,7 @@ from .models import AssistantRequest, AssistantResponse
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
-client = OpenAI(api_key=settings.openai_api_key)
+client = OpenAI(api_key=settings.google_api_key, base_url=settings.gemini_base_url)
 
 def ask_assistant(request: AssistantRequest) -> AssistantResponse:
     """Procesa pregunta y devuelve respuesta estructurada"""
@@ -2181,17 +2234,22 @@ similarity = cosine_similarity(vec1, vec2)[0][0]
 print(similarity)  # ~0.99 (muy similar)
 ```
 
-**OpenAI Embeddings API:**
+**Embeddings API (Gemini, con el SDK de OpenAI):**
 ```python
 from openai import OpenAI
-client = OpenAI()
+import os
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 response = client.embeddings.create(
-    model="text-embedding-3-small",
+    model="gemini-embedding-001",
+    dimensions=1536,
     input="Texto para convertir a vector"
 )
 
-embedding = response.data[0].embedding  # lista de 1536 números
+embedding = response.data[0].embedding  # lista de 1536 números (los pedimos con dimensions=1536)
 ```
 
 ### 📚 Recursos
@@ -2202,7 +2260,8 @@ embedding = response.data[0].embedding  # lista de 1536 números
 - [Semantic Search Tutorial](https://www.youtube.com/watch?v=OATCgQtNX2o) (20min)
 
 **Artículos:**
-- [OpenAI Embeddings Guide](https://platform.openai.com/docs/guides/embeddings)
+- [Gemini Embeddings Guide](https://ai.google.dev/gemini-api/docs/embeddings)
+- [OpenAI Embeddings Guide](https://platform.openai.com/docs/guides/embeddings) (conceptos)
 - [Understanding Vector Embeddings](https://www.pinecone.io/learn/vector-embeddings/)
 
 **Notebooks interactivos:**
@@ -2212,11 +2271,11 @@ embedding = response.data[0].embedding  # lista de 1536 números
 
 **Lunes (1.5h):**
 - Ver videos sobre embeddings
-- Leer OpenAI Embeddings Guide
+- Leer Gemini Embeddings Guide
 - Entender el concepto intuitivamente
 
 **Martes (1.5h):**
-- Generar tus primeros embeddings con OpenAI API
+- Generar tus primeros embeddings con la API de Gemini
 - Ejercicio: Embed 10 frases y visualizar similitudes
 
 **Miércoles (1.5h):**
@@ -2242,7 +2301,10 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import os
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 # Dataset de películas
 MOVIES = [
@@ -2261,7 +2323,8 @@ MOVIES = [
 def get_embedding(text: str) -> list[float]:
     """Obtiene embedding de un texto"""
     response = client.embeddings.create(
-        model="text-embedding-3-small",
+        model="gemini-embedding-001",
+        dimensions=1536,
         input=text
     )
     return response.data[0].embedding
@@ -2380,7 +2443,7 @@ Verás que películas similares están más cerca en el espacio.
 
 ### ✅ Checklist
 - [ ] Entiendo qué son embeddings conceptualmente
-- [ ] Sé generar embeddings con OpenAI API
+- [ ] Sé generar embeddings con la API de Gemini
 - [ ] Entiendo cosine similarity
 - [ ] He implementado búsqueda semántica
 - [ ] Movie search funciona correctamente
@@ -2428,7 +2491,7 @@ Antes de continuar a Fase 2, verifica que dominas:
 
 **Embeddings:**
 - [ ] Qué son y para qué sirven
-- [ ] Generar con OpenAI
+- [ ] Generar con Gemini
 - [ ] Cosine similarity
 - [ ] Búsqueda semántica
 
@@ -2465,7 +2528,7 @@ Antes de continuar a Fase 2, verifica que dominas:
 **Stack:**
 - FastAPI
 - SQLAlchemy + PostgreSQL
-- OpenAI (embeddings + chat)
+- Gemini (embeddings + chat)
 - Docker
 
 **Estructura:**
@@ -2509,12 +2572,16 @@ import os
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 def get_embedding(text: str) -> list[float]:
     """Genera embedding de un texto"""
     response = client.embeddings.create(
-        model="text-embedding-3-small",
+        model="gemini-embedding-001",
+        dimensions=1536,
         input=text
     )
     return response.data[0].embedding
@@ -2522,7 +2589,7 @@ def get_embedding(text: str) -> list[float]:
 def summarize_note(content: str) -> str:
     """Genera resumen de una nota"""
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gemini-3.8-flash",
         messages=[
             {"role": "system", "content": "Resume el siguiente texto en 2-3 frases."},
             {"role": "user", "content": content}
@@ -2629,6 +2696,8 @@ docker-compose up --build
 - [ ] Listo para Fase 2 (RAG completo)
 
 ---
+
+<a id="fase-2"></a>
 
 # FASE 2: BACKEND + RAG
 ## Enero - Marzo 2027 (12 semanas)
@@ -2791,11 +2860,15 @@ from .database import engine, get_db
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Knowledge Base API")
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+openai_client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 def get_embedding(text: str) -> list[float]:
     response = openai_client.embeddings.create(
-        model="text-embedding-3-small",
+        model="gemini-embedding-001",
+        dimensions=1536,
         input=text
     )
     return response.data[0].embedding
@@ -3608,12 +3681,16 @@ from openai import OpenAI
 import os
 from typing import List
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 def get_embedding(text: str) -> List[float]:
     """Genera embedding de un texto"""
     response = client.embeddings.create(
-        model="text-embedding-3-small",
+        model="gemini-embedding-001",
+        dimensions=1536,
         input=text
     )
     return response.data[0].embedding
@@ -3621,7 +3698,8 @@ def get_embedding(text: str) -> List[float]:
 def get_embeddings_batch(texts: List[str]) -> List[List[float]]:
     """Genera embeddings en batch (más eficiente)"""
     response = client.embeddings.create(
-        model="text-embedding-3-small",
+        model="gemini-embedding-001",
+        dimensions=1536,
         input=texts
     )
     return [item.embedding for item in response.data]
@@ -3633,7 +3711,10 @@ from openai import OpenAI
 from typing import List, Dict
 import os
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 def generate_answer(question: str, context_chunks: List[Dict]) -> Dict:
     """Genera respuesta basada en chunks recuperados"""
@@ -3662,7 +3743,7 @@ Responde de forma clara y citando las fuentes."""
 
     # Llamada a LLM
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gemini-3.8-flash",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
@@ -3693,7 +3774,7 @@ Si no sabes, di "No tengo información suficiente"."""
 Pregunta: {question}"""
 
     stream = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gemini-3.8-flash",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
@@ -3957,7 +4038,7 @@ services:
       - "8000:8000"
     environment:
       DATABASE_URL: postgresql://postgres:password@db:5432/docs_qa_db
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
     depends_on:
       db:
         condition: service_healthy
@@ -4040,42 +4121,6 @@ def test_qa():
 
 ---
 
-*(Continuaría con las semanas 18-24 de Fase 2, Fase 3 (Producción + Agents), Fase 4 (Deploy + Empleo), Recursos Generales, Networking Madrid, y Preparación de Entrevistas...)*
-
-*Dado el límite de longitud, he creado una base MUY sólida y detallada de las primeras 17 semanas. El documento completo de 48 semanas seguiría este mismo nivel de detalle.*
-
----
-
-## Continuación recomendada
-
-Para las semanas restantes (18-48), el documento seguiría con:
-
-**Fase 2 (continúa):**
-- Semana 18: LangChain avanzado
-- Semana 19: Reranking y hybrid search
-- Semana 20: Optimización de RAG (chunking strategies avanzadas)
-- Semana 21-24: Mejorar Docs Q&A con UI, auth, y features avanzadas
-
-**Fase 3: Producción + Agents (Abr-Jun):**
-- LLM observability (Langfuse)
-- Evaluations y benchmarking
-- Safety (guardrails, content moderation)
-- AI Agents con LangGraph
-- Tool calling
-- Memory y state
-- Proyecto 3: Production Support Bot
-
-**Fase 4: Deploy + Empleo (Jul-Sep):**
-- AWS (EC2, S3, RDS, ECS)
-- CI/CD con GitHub Actions
-- Monitoring y alertas
-- Proyecto final: AI Micro-SaaS deployado
-- Preparación intensiva de entrevistas
-- Networking activo
-- Aplicaciones a empresas
-
----
-
 ## SEMANA 18: LangChain Deep Dive
 
 ### 🎯 Objetivo
@@ -4116,20 +4161,20 @@ Muchas empresas usan LangChain. Pero ojo: también debes entender qué hace por 
 ### 🗓️ Plan semanal (6h)
 
 **Lunes (1.5h): Fundamentos LangChain**
-- Instalar: `pip install langchain langchain-openai langchain-community`
+- Instalar: `pip install langchain langchain-google-genai langchain-community`
 - Ver primer video hasta minuto 30
 - Leer docs "Core concepts"
-- Ejercicio: convertir tu CLI anterior a usar LangChain en vez de OpenAI SDK directo
+- Ejercicio: convertir tu CLI anterior a usar LangChain en vez del SDK de OpenAI directo
 
 **Martes (1.5h): Chains y LCEL**
 ```python
 # chains_example.py
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 
 # Define chain usando LCEL (| operator)
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatGoogleGenerativeAI(model="gemini-3.8-flash")
 prompt = ChatPromptTemplate.from_template(
     "Eres un asistente técnico. Explica {concept} en 2 párrafos."
 )
@@ -4177,9 +4222,9 @@ Ejercicio: crea 3 chains diferentes (summarize, Q&A, code generation).
 # memory_example.py
 from langchain.memory import ConversationBufferMemory, ConversationSummaryMemory
 from langchain.chains import ConversationChain
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatGoogleGenerativeAI(model="gemini-3.8-flash")
 
 # Buffer memory (guarda todo)
 memory = ConversationBufferMemory()
@@ -4224,7 +4269,7 @@ Ejercicio: implementa chatbot con memory que recuerde preferencias del usuario.
 ```python
 # callbacks_example.py
 from langchain.callbacks.base import BaseCallbackHandler
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.schema import HumanMessage
 
 class MyCallback(BaseCallbackHandler):
@@ -4237,8 +4282,8 @@ class MyCallback(BaseCallbackHandler):
     def on_llm_error(self, error, **kwargs):
         print(f"❌ Error: {error}")
 
-llm = ChatOpenAI(
-    model="gpt-4o-mini",
+llm = ChatGoogleGenerativeAI(
+    model="gemini-3.8-flash",
     callbacks=[MyCallback()]
 )
 
@@ -4257,7 +4302,7 @@ Ejercicio: añade callback que cuente tokens usados.
 
 **Viernes (1.5h): Migrar Docs Q&A a LangChain**
 Refactoriza tu proyecto anterior usando:
-- `ChatOpenAI` en vez de cliente directo
+- `ChatGoogleGenerativeAI` en vez de cliente directo
 - `PromptTemplate` para query reformulation
 - `ConversationChain` con memory para follow-up questions
 
@@ -4357,9 +4402,10 @@ from langchain.text_splitter import (
 )
 import tiktoken
 
-# Contador de tokens real
-def count_tokens(text: str, model: str = "gpt-4o-mini") -> int:
-    encoding = tiktoken.encoding_for_model(model)
+# Contador de tokens (aproximado)
+def count_tokens(text: str) -> int:
+    # tiktoken es de OpenAI: con Gemini da una estimación (suficiente para chunking)
+    encoding = tiktoken.get_encoding("cl100k_base")
     return len(encoding.encode(text))
 
 # Splitter básico
@@ -4497,7 +4543,7 @@ class DocumentChunk(Base):
     
     id = Column(Integer, primary_key=True)
     text = Column(Text)
-    embedding = Column(Vector(1536))  # text-embedding-3-small
+    embedding = Column(Vector(1536))  # gemini-embedding-001 con dimensions=1536
     source = Column(String)
     page_number = Column(Integer)
     section = Column(String)
@@ -4533,12 +4579,17 @@ def search_with_filters(
 
 # Uso
 from openai import OpenAI
-client = OpenAI()
+import os
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 query = "How do I install the software?"
 query_embedding = client.embeddings.create(
     input=query,
-    model="text-embedding-3-small"
+    model="gemini-embedding-001",
+    dimensions=1536
 ).data[0].embedding
 
 # Buscar solo en manual, sección installation
@@ -4627,13 +4678,13 @@ documents = [
     "Deep learning is a subset of ML"
 ]
 
-# Simula embeddings (en real, usa OpenAI)
+# Simula embeddings (en real, usa Gemini)
 embeddings = np.random.rand(len(documents), 1536)
 
 retriever = HybridRetriever(documents, embeddings.tolist())
 
 query = "Python web framework"
-query_embedding = np.random.rand(1536).tolist()  # En real: OpenAI
+query_embedding = np.random.rand(1536).tolist()  # En real: Gemini
 
 results = retriever.hybrid_search(query, query_embedding, alpha=0.7)
 
@@ -4727,9 +4778,13 @@ El vector search inicial puede traer documentos no óptimos. Necesitas una segun
 ```python
 # query_enhancement.py
 from openai import OpenAI
+import os
 from typing import List
 
-client = OpenAI()
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 
 def expand_query_multiquery(query: str, num_variations: int = 3) -> List[str]:
     """Genera variaciones de la query"""
@@ -4740,7 +4795,7 @@ Original: {query}
 Variations:"""
     
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gemini-3.8-flash",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7
     )
@@ -4759,7 +4814,7 @@ Question: {query}
 Passage:"""
     
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gemini-3.8-flash",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3,
         max_tokens=200
@@ -4776,7 +4831,7 @@ Question: {query}
 Sub-questions:"""
     
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gemini-3.8-flash",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3
     )
@@ -4994,9 +5049,13 @@ Ejercicio: implementa variante "sentence window" (busca por frase, retorna párr
 # advanced_rag_pipeline.py
 from typing import List, Dict
 from openai import OpenAI
+import os
 import cohere
 
-client = OpenAI()
+client = OpenAI(
+    api_key=os.getenv("GOOGLE_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+)
 co = cohere.Client()
 
 class AdvancedRAGPipeline:
@@ -5054,7 +5113,7 @@ class AdvancedRAGPipeline:
     
     def multiquery(self, query: str, num: int = 2) -> List[str]:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gemini-3.8-flash",
             messages=[{
                 "role": "user",
                 "content": f"Generate {num} variations of: {query}"
@@ -5066,7 +5125,7 @@ class AdvancedRAGPipeline:
     
     def hyde(self, query: str) -> str:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gemini-3.8-flash",
             messages=[{
                 "role": "user",
                 "content": f"Write a passage that answers: {query}"
@@ -5095,7 +5154,7 @@ class AdvancedRAGPipeline:
     
     def generate_answer(self, query: str, context: str) -> str:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gemini-3.8-flash",
             messages=[
                 {
                     "role": "system",
@@ -5113,7 +5172,8 @@ class AdvancedRAGPipeline:
     def get_embedding(self, text: str) -> List[float]:
         response = client.embeddings.create(
             input=text,
-            model="text-embedding-3-small"
+            model="gemini-embedding-001",
+            dimensions=1536
         )
         return response.data[0].embedding
 
@@ -5315,10 +5375,12 @@ class Settings(BaseSettings):
     # Database
     database_url: str
     
-    # OpenAI
-    openai_api_key: str
-    openai_model: str = "gpt-4o-mini"
-    embedding_model: str = "text-embedding-3-small"
+    # Gemini (vía endpoint compatible con OpenAI)
+    google_api_key: str
+    gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
+    gemini_model: str = "gemini-3.8-flash"
+    embedding_model: str = "gemini-embedding-001"
+    embedding_dimensions: int = 1536
     
     # Cohere (opcional)
     cohere_api_key: str | None = None
@@ -5387,8 +5449,9 @@ from app.config import get_settings
 
 settings = get_settings()
 
-def count_tokens(text: str, model: str = "gpt-4o-mini") -> int:
-    encoding = tiktoken.encoding_for_model(model)
+def count_tokens(text: str) -> int:
+    # tiktoken es de OpenAI: con Gemini da una estimación (suficiente para chunking)
+    encoding = tiktoken.get_encoding("cl100k_base")
     return len(encoding.encode(text))
 
 class DocumentChunker:
@@ -5452,7 +5515,7 @@ settings = get_settings()
 
 class EmbeddingGenerator:
     def __init__(self):
-        self.client = OpenAI(api_key=settings.openai_api_key)
+        self.client = OpenAI(api_key=settings.google_api_key, base_url=settings.gemini_base_url)
         self.model = settings.embedding_model
     
     def generate(self, text: str) -> List[float]:
@@ -5460,7 +5523,8 @@ class EmbeddingGenerator:
         try:
             response = self.client.embeddings.create(
                 input=text,
-                model=self.model
+                model=self.model,
+                dimensions=settings.embedding_dimensions
             )
             return response.data[0].embedding
         except Exception as e:
@@ -5477,7 +5541,8 @@ class EmbeddingGenerator:
             try:
                 response = self.client.embeddings.create(
                     input=batch,
-                    model=self.model
+                    model=self.model,
+                    dimensions=settings.embedding_dimensions
                 )
                 batch_embeddings = [item.embedding for item in response.data]
                 embeddings.extend(batch_embeddings)
@@ -5615,13 +5680,13 @@ settings = get_settings()
 
 class QueryEnhancer:
     def __init__(self):
-        self.client = OpenAI(api_key=settings.openai_api_key)
+        self.client = OpenAI(api_key=settings.google_api_key, base_url=settings.gemini_base_url)
     
     def expand_multiquery(self, query: str, num_variations: int = 2) -> List[str]:
         """Generate query variations"""
         try:
             response = self.client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gemini-3.8-flash",
                 messages=[{
                     "role": "user",
                     "content": f"Generate {num_variations} different phrasings of: {query}"
@@ -5655,8 +5720,8 @@ settings = get_settings()
 
 class AnswerGenerator:
     def __init__(self):
-        self.client = OpenAI(api_key=settings.openai_api_key)
-        self.model = settings.openai_model
+        self.client = OpenAI(api_key=settings.google_api_key, base_url=settings.gemini_base_url)
+        self.model = settings.gemini_model
     
     def generate(
         self,
@@ -5916,7 +5981,7 @@ services:
       - "8000:8000"
     environment:
       DATABASE_URL: postgresql://user:password@db:5432/docsqa
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
       COHERE_API_KEY: ${COHERE_API_KEY}
     depends_on:
       - db
@@ -5939,7 +6004,9 @@ Ejercicio: ejecuta tests con `pytest` y levanta el stack con `docker-compose up`
 
 ---
 
-## FASE 3: PRODUCCIÓN Y AGENTES (Semanas 22-33)
+<a id="fase-3"></a>
+
+# FASE 3: PRODUCCIÓN Y AGENTES (Semanas 22-33)
 
 ### Resumen Fase 3
 
@@ -6163,8 +6230,8 @@ langfuse = Langfuse()
 
 class AnswerGenerator:
     def __init__(self):
-        self.client = OpenAI(api_key=settings.openai_api_key)
-        self.model = settings.openai_model
+        self.client = OpenAI(api_key=settings.google_api_key, base_url=settings.gemini_base_url)
+        self.model = settings.gemini_model
         
         # Fetch prompt from Langfuse
         self.system_prompt = self.get_prompt("rag-system-prompt")
@@ -6212,7 +6279,8 @@ class AnswerGenerator:
         return answer
     
     def calculate_cost(self, usage) -> float:
-        # Prices for gpt-4o-mini (example, update as needed)
+        # Precios de ejemplo. En el plan gratuito de Gemini el coste es 0;
+        # si pasas a pago, pon los de tu modelo (https://ai.google.dev/gemini-api/docs/pricing)
         input_cost = (usage.prompt_tokens / 1000) * 0.00015
         output_cost = (usage.completion_tokens / 1000) * 0.0006
         return input_cost + output_cost
@@ -6821,6 +6889,7 @@ Ejercicio: simula errores y verifica que aparecen en Sentry dashboard.
 
 ```python
 # app/resilience/circuit_breaker.py
+import os
 from enum import Enum
 from datetime import datetime, timedelta
 from typing import Callable, Any
@@ -6895,7 +6964,10 @@ embedding_circuit = CircuitBreaker(failure_threshold=3, timeout=30)
 
 class EmbeddingGenerator:
     def __init__(self):
-        self.client = OpenAI()
+        self.client = OpenAI(
+            api_key=os.getenv("GOOGLE_API_KEY"),
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+        )
         self.circuit_breaker = CircuitBreaker(failure_threshold=3, timeout=60)
     
     def generate(self, text: str) -> list[float]:
@@ -6913,7 +6985,8 @@ class EmbeddingGenerator:
     def _generate_impl(self, text: str) -> list[float]:
         response = self.client.embeddings.create(
             input=text,
-            model="text-embedding-3-small"
+            model="gemini-embedding-001",
+            dimensions=1536
         )
         return response.data[0].embedding
 ```
@@ -7015,6 +7088,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.database import get_db
 from openai import OpenAI
+import os
 import logging
 
 logger = logging.getLogger(__name__)
@@ -7042,14 +7116,17 @@ def detailed_health_check(db: Session = Depends(get_db)):
         health_status["checks"]["database"] = "error"
         health_status["status"] = "unhealthy"
     
-    # Check OpenAI
+    # Check Gemini
     try:
-        client = OpenAI()
+        client = OpenAI(
+            api_key=os.getenv("GOOGLE_API_KEY"),
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+        )
         client.models.list()
-        health_status["checks"]["openai"] = "ok"
+        health_status["checks"]["gemini"] = "ok"
     except Exception as e:
-        logger.error(f"OpenAI health check failed: {e}")
-        health_status["checks"]["openai"] = "error"
+        logger.error(f"Gemini health check failed: {e}")
+        health_status["checks"]["gemini"] = "error"
         health_status["status"] = "degraded"
     
     return health_status
@@ -7289,6 +7366,7 @@ available_functions = {
 ```python
 # agent.py
 from openai import OpenAI
+import os
 import json
 from typing import List, Dict, Any
 from agent_tools import tools, available_functions
@@ -7302,8 +7380,11 @@ class SimpleAgent:
     Agent básico con ReAct pattern
     """
     
-    def __init__(self, model: str = "gpt-4o-mini"):
-        self.client = OpenAI()
+    def __init__(self, model: str = "gemini-3.8-flash"):
+        self.client = OpenAI(
+            api_key=os.getenv("GOOGLE_API_KEY"),
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+        )
         self.model = model
         self.max_iterations = 5
     
@@ -7531,7 +7612,7 @@ User input → Classifier → [Route A o Route B] → Tools → Response
 
 **Instalación:**
 ```bash
-pip install langgraph langchain-openai
+pip install langgraph langchain-google-genai
 ```
 
 **1. Estado del agent:**
@@ -7554,10 +7635,10 @@ class AgentState(TypedDict):
 
 **2. Nodes (funciones de procesamiento):**
 ```python
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+llm = ChatGoogleGenerativeAI(model="gemini-3.8-flash", temperature=0)
 
 def classify_question(state: AgentState) -> AgentState:
     """
@@ -7970,6 +8051,7 @@ from typing import List, Dict, Optional
 from datetime import datetime, timedelta
 import tiktoken
 from openai import OpenAI
+import os
 import logging
 
 logger = logging.getLogger(__name__)
@@ -7982,8 +8064,11 @@ class MemoryManager:
     def __init__(self, db: Session, user_id: str):
         self.db = db
         self.user_id = user_id
-        self.openai_client = OpenAI()
-        self.encoding = tiktoken.encoding_for_model("gpt-4")
+        self.openai_client = OpenAI(
+            api_key=os.getenv("GOOGLE_API_KEY"),
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",  # Gemini con el SDK de OpenAI
+        )
+        self.encoding = tiktoken.get_encoding("cl100k_base")  # estimación de tokens
         self.max_tokens = 4000  # Límite para context window
     
     def add_message(self, role: str, content: str):
@@ -8205,7 +8290,7 @@ class MemoryManager:
         """
         
         response = self.openai_client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gemini-3.8-flash",
             messages=[{"role": "user", "content": prompt}],
             temperature=0
         )
@@ -8222,7 +8307,8 @@ class MemoryManager:
         Genera embedding para text
         """
         response = self.openai_client.embeddings.create(
-            model="text-embedding-3-small",
+            model="gemini-embedding-001",
+            dimensions=1536,
             input=text
         )
         return response.data[0].embedding
@@ -8240,7 +8326,7 @@ class MemoryManager:
 ```python
 # agent_with_memory.py
 from memory_manager import MemoryManager
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from sqlalchemy.orm import Session
 import uuid
@@ -8254,7 +8340,7 @@ class AgentWithMemory:
         self.db = db
         self.user_id = user_id
         self.memory = MemoryManager(db, user_id)
-        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
+        self.llm = ChatGoogleGenerativeAI(model="gemini-3.8-flash", temperature=0.7)
         self.session_id = str(uuid.uuid4())
     
     def chat(self, user_message: str) -> str:
@@ -8426,7 +8512,7 @@ Sistema de atención al cliente que:
 - FastAPI
 - PostgreSQL + pgvector
 - LangGraph para workflows
-- OpenAI API
+- Gemini API
 - Langfuse
 - Sentry
 - Docker
@@ -8593,9 +8679,10 @@ class Settings(BaseSettings):
     # Database
     database_url: str
     
-    # OpenAI
-    openai_api_key: str
-    openai_model: str = "gpt-4o-mini"
+    # Gemini (vía endpoint compatible con OpenAI)
+    google_api_key: str
+    gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
+    gemini_model: str = "gemini-3.8-flash"
     
     # Langfuse
     langfuse_public_key: str
@@ -8962,7 +9049,9 @@ def submit_feedback(
 
 ---
 
-## ☁️ FASE 4: DEPLOYMENT & EMPLEO (Junio-Septiembre)
+<a id="fase-4"></a>
+
+# FASE 4: DEPLOYMENT & EMPLEO (Junio-Septiembre)
 
 A partir de aquí el foco cambia: ya sabes construir. Ahora necesitas:
 1. Deployar para que otros lo vean
@@ -9095,7 +9184,7 @@ cd docs-qa-platform
 # Setup .env con RDS connection
 nano .env
 # DATABASE_URL=postgresql://user:pass@your-rds-instance.xxx.eu-west-1.rds.amazonaws.com:5432/docsqa
-# OPENAI_API_KEY=sk-...
+# GOOGLE_API_KEY=tu-api-key-de-gemini
 
 # Build y run
 docker-compose up -d
@@ -9611,7 +9700,7 @@ Añade:
 - `EC2_SSH_KEY`
 - `DOCKER_USERNAME`
 - `DOCKER_PASSWORD`
-- `OPENAI_API_KEY`
+- `GOOGLE_API_KEY`
 
 **7. Branch protection rules:**
 Settings → Branches → Add rule
@@ -9680,7 +9769,7 @@ SaaS que permite a equipos hacer Q&A sobre sus documentos internos con AI.
 ```
 User → Next.js UI → FastAPI Backend → PostgreSQL
                  ↓
-               OpenAI API
+               Gemini API
                  ↓
                Langfuse (monitoring)
 ```
@@ -10225,6 +10314,8 @@ copilot svc deploy --name ui
 
 ---
 
+<a id="entrevistas"></a>
+
 ## 🎯 SEMANAS 35-40: Preparación Entrevistas & Portfolio (Jul-Ago)
 
 ### SEMANA 35: System Design para AI Engineers
@@ -10277,6 +10368,8 @@ Dibuja diagramas de arquitectura para:
 - "Tell me about yourself" (2min pitch)
 - "Walk me through a project" (elige DocuChat Pro)
 - "Tell me about a technical challenge you faced"
+
+<a id="networking"></a>
 
 ### SEMANAS 39-40: Portfolio & Networking
 
@@ -10392,6 +10485,8 @@ Crea web personal con:
 - Conecta con tu future team en LinkedIn
 
 ---
+
+<a id="recursos"></a>
 
 ## 🎓 Recursos Generales de Estudio
 
