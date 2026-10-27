@@ -10,7 +10,7 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 ![Gemini](https://img.shields.io/badge/Gemini_API-8E75B2?logo=googlegemini&logoColor=white)
 
-I'm **Marco López Prieto** (Madrid), with a background in Data Science. This repository follows a structured 48-week plan (October 2026 – September 2027) to add the engineering skills that production AI systems require: API development, LLM integration, RAG, agents, containerization and cloud deployment.
+I'm **Marco López Prieto** (Madrid), with a background in Computer Engineering and Data Science. This repository follows a structured 48-week plan (October 2026 – September 2027) to add the engineering skills that production AI systems require: API development, LLM integration, RAG, agents, containerization and cloud deployment.
 
 The approach is hands-on: every week ends with working, tested code committed to this repository.
 
