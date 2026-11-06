@@ -22,6 +22,12 @@ Weekly exercises from my [AI Engineer roadmap](../README.md). Each folder contai
 
 ## Week 4: LLM fundamentals
 
+- [`chatbot.py`](semana4/chatbot.py): command-line chatbot with conversation memory and Markdown output (`rich`). Falls back to other Gemini models when one is overloaded (503), rate-limited (429) or times out.
+- [`asistente_formal.py`](semana4/asistente_formal.py), [`asistente_casual.py`](semana4/asistente_casual.py), [`asistente_tecnico.py`](semana4/asistente_tecnico.py): the same question asked with three different system prompts, to compare how each one changes tone, length and structure.
+- [`helloworldOpenAI.py`](semana4/helloworldOpenAI.py): first call to Gemini through the OpenAI SDK, reading the API key from `.env`.
+
+## Week 5: Prompt engineering
+
 In progress.
 
 ---
@@ -39,4 +45,11 @@ uvicorn practice.semana2.miniCRUD_API:app --reload
 
 # Week 3 tests
 python -m pytest practice/semana3/testsCRUD-API.py
+```
+
+Week 4 needs a `GOOGLE_API_KEY` in a `.env` file at the repository root, and the dependencies from `pyproject.toml`:
+
+```bash
+uv sync
+uv run python practice/semana4/chatbot.py
 ```

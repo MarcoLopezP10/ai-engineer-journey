@@ -23,8 +23,9 @@ The approach is hands-on: every week ends with working, tested code committed to
 | 1 | Asynchronous Python (`asyncio`) and data validation with Pydantic | Done |
 | 2 | REST API design with FastAPI | Done |
 | 3 | Advanced Git and testing with Pytest | Done |
-| 4 | LLM fundamentals: tokens, prompting and API usage | In progress |
-| 5–12 | Prompt engineering, Docker, PostgreSQL, embeddings and Project 1 | Planned |
+| 4 | LLM fundamentals: tokens, prompting and API usage | Done |
+| 5 | Prompt engineering | In progress |
+| 6–12 | Docker, PostgreSQL, embeddings and Project 1 | Planned |
 
 Weekly exercises and code are described in the [practice log](practice/README.md).
 
